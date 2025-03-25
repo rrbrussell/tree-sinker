@@ -1,0 +1,34 @@
+[project]
+name = "tree-sinker"
+version = "0.0.1"
+dependencies = [
+  "requests",
+  "configparser",
+]
+requires-python = ">=3.12"
+authors = [
+  {name = "Robert R. Russell", email = "robert@rrbrussell.com"},
+]
+description = "A small tool for automatically fetching a squashed portage tree from another server and remounting the tree."
+readme = "README.md"
+license = "GPL-2.0-only"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: System Adminstrators",
+  "License :: OSI Approved :: GNU General Public License v2 (GPLv2",
+  "Natural Language :: English",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Langauge :: Python :: 3.13",
+  "Topic :: System :: Systems Administration",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+homepage = "https://www.github.com/rrbrussell/tree-sinker"
+github = "https://www.github.com/rrbrussell/tree-sinker"
+
+[project.scripts]
+tree-sinker = "tree-sinker:main_cli"
