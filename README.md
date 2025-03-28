@@ -7,9 +7,9 @@ license so other people can use it.
 
 ## Current status.
 
-[*] I can make a Python Wheel out of the package.
-[*] Default Systemd timers, mounts, and service files are provided.
-[ ] Correctly setup an installer for those files.
-[ ] Download a squashfs.
-[ ] Read a configuration file properly.
-[ ] Tests.
+- [x] I can make a Python Wheel out of the package.
+- [x] Default Systemd timers, mounts, and service files are provided.
+- [ ] Correctly setup an installer for those files.
+- [ ] Download a squashfs.
+- [ ] Read a configuration file properly.
+- [ ] Tests.
