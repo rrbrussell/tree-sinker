@@ -16,7 +16,6 @@ classifiers = [
   "Development Status :: 3 - Alpha",
   "Environment :: Console",
   "Intended Audience :: System Adminstrators",
-  "License :: OSI Approved :: GNU General Public License v2 (GPLv2",
   "Natural Language :: English",
   "Operating System :: POSIX :: Linux",
   "Programming Language :: Python :: 3",
@@ -31,4 +30,4 @@ homepage = "https://www.github.com/rrbrussell/tree-sinker"
 github = "https://www.github.com/rrbrussell/tree-sinker"
 
 [project.scripts]
-tree-sinker = "tree-sinker:main_cli"
+tree-sinker = "tree_sinker:main_cli"
