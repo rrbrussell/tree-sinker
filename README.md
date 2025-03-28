@@ -12,4 +12,13 @@ license so other people can use it.
 - [ ] Correctly setup an installer for those files.
 - [ ] Download a squashfs.
 - [ ] Read a configuration file properly.
+  - [x] I have a working test for the basic ConfigParser api that I
+  use.
+  - [ ] Check if the file exists and handle errors.
 - [ ] Tests.
+  - [x] ConfigParser
+
+
+## Dependencies
+
+[ConfigParser](https://docs.python.org/3/library/configparser.html)
