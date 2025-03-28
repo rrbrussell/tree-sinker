@@ -1,0 +1,7 @@
+[Unit]
+Description=Update the %i squashed portage tree
+Requires=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=update_squashfs_portage.sh %i
