@@ -13,10 +13,14 @@ it.
 - [ ] Correctly setup an installer for those files.
 - [ ] Download a squashfs.
   - [ ] Integrity checking of the downloaded squashfs.
-  - [ ] Check if we actually need to download the squashfs in the first place.
+     - [ ] Check if we actually need to download the squashfs in the first
+     place. This now has a hard dependecy on the integrity checking operation.
 - [ ] Read a configuration file properly.
   - [x] I have a working test for the basic configparser api that I use.
-  - [ ] Check if the file exists and handle errors.
+  - [ ] Check if the file exists
+    - [ ] The support function to do the existance checking has been written and
+    tested but it needs to be integrated into the main executable.
+  - [ ] Correctly handle the appropriate errors.
 - [ ] Tests.
   - [x] ConfigParser
 
@@ -36,15 +40,6 @@ work on is using requests to handle the file fetching.
 
 This is where I stash notes about parts of the program including algorithm
 snippets or other ideas.
-
-### Checking if I need to synchronize the squashfs.
-
-```
-Use HTTP HEAD to get the last modification time on the server.
-Check if the current last modification time is older.
-True -> Download the new vestion of the squashfs file.
-False -> Do nothing.
-```
 
 ### What is the best way of checksumming the squashfs files.
 

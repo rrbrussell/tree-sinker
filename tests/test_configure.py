@@ -14,4 +14,4 @@ def test_configuration():
     assert 'store into' in config
     assert 'repos_dir' in config['store into']
 
-#EOF
+#End of buffer
