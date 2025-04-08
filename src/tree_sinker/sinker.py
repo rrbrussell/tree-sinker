@@ -19,8 +19,6 @@ import os
 import requests
 import sys
 import tree_sinker.support
-from tree_sinker.packer import packer_cli
-from tree_sinker.sinker import main_cli
 
 ap_description = '''
 %(prog)s is a program for syncronizing compressed read only Portage
@@ -49,4 +47,4 @@ def main_cli(argv=sys.argv):
     config.read('./etc/tree-sinker.ini')
     
     
- # End of File
+# End of buffer
