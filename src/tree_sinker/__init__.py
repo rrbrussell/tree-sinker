@@ -4,6 +4,8 @@ import os
 import requests
 import sys
 import tree_sinker.support
+from tree_sinker.packer import packer_cli
+
 
 ap_description = '''
 %(prog)s is a program for syncronizing compressed read only Portage
@@ -26,7 +28,8 @@ def main_cli(argv=sys.argv):
         'http://mars.private.rrbrussell.com/portage_trees/gentoo-latest.sqfs')
     blake_hash = blake2b()
     config = configparser.ConfigParser()
-    config['fetch from'] = {'server': 'https://server.example.com', 'path': '/directory1/directory2'}
+    config['fetch from'] = {'server': 'https://server.example.com',
+                            'path': '/directory1/directory2'}
     config['store into'] = {'repos_dir': '/var/db/repos'}
     config.read('./etc/tree-sinker.ini')
     
