@@ -27,8 +27,8 @@ classifiers = [
 ]
 
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project.urls]
 homepage = "https://www.github.com/rrbrussell/tree-sinker"
