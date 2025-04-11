@@ -12,6 +12,7 @@ authors = [
 description = "A small tool for automatically fetching a squashed portage tree from another server and remounting the tree."
 readme = "README.md"
 license = "GPL-2.0-only"
+license-files = ["LICENSE", "DOCUMENTATION_LICENSE"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Environment :: Console",
@@ -25,6 +26,10 @@ classifiers = [
   "Topic :: Utilities",
 ]
 
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project.urls]
 homepage = "https://www.github.com/rrbrussell/tree-sinker"
 github = "https://www.github.com/rrbrussell/tree-sinker"
@@ -32,3 +37,4 @@ github = "https://www.github.com/rrbrussell/tree-sinker"
 [project.scripts]
 tree-sinker = "tree_sinker:main_cli"
 tree-packer = "tree_sinker:packer_cli"
+

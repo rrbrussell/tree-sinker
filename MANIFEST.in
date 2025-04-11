@@ -1,3 +1,4 @@
 include etc/systemd/system/tree-sinker@.timer
 include etc/systemd/system/tree-sinker@.service
 include etc/systemd/system/var-db-repos-gentoo.mount
+include man/tree-packer.1
