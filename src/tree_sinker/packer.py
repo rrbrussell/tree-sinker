@@ -55,11 +55,11 @@ def packer_cli(argv=sys.argv):
     b2sum_latest = f'{args.repository_name}-latest.blake2b';
     with tempfile.TemporaryDirectory(prefix='tree-packer.') as temp_dir:
         os.chdir(temp_dir);
-        egencache = subprocess.run(['echo', '--update', '--update-manifests',
+        egencache = subprocess.run(['egencache', '--update', '--update-manifests',
         '--update-pkg-desc-index', '--sign-manifests', 'n', '--jobs=4',
         f'--repo={args.repository_name}']);
         if egencache.returncode == 0:
-            mksquashfs = subprocess.run(['echo', '-comp', 'xz', '-all-time',
+            mksquashfs = subprocess.run(['mksquashfs', '-comp', 'xz', '-all-time',
             'now', '-force-uid', 'portage', '-force-gid', 'portage',
             '-no-exports', '-tailends', '-no-xattrs', '-quiet', '-no-progress',
             '-noappend', args.repository_path, squashfs_name, '-e', '.git']);
