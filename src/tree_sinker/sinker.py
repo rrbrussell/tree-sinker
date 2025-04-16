@@ -19,7 +19,6 @@ from configparser import ConfigParser
 import hashlib
 import os
 import requests
-from requests.exception import HTTPError
 import shutil
 import subprocess
 import sys
@@ -119,7 +118,7 @@ def main_cli(argv=sys.argv) -> int:
             print('Configuration file has errors.')
             sys.exit(1)
         print('stuff')
-    except HTTPError as e:
+    except requests.HTTPError as e:
         print(http_status_error_message)
         print(e)
         return 1
