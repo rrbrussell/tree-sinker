@@ -22,14 +22,15 @@ import subprocess
 import sys
 import tempfile
 import time
+import typing
 
-tp_description = '''
+tp_description: str = '''
 %(prog)s packages a portage tree into a squashfs for later consumption by
 tree-sinker. See /usr/share/doc/tree-sinker/example-tree-packer.ini for
 an example configuration file.
 '''
 
-tp_epilog = '''
+tp_epilog: str = '''
 For more information about using tree-packer please see the github at
 https://github.com/rrbrussell/tree-sinker/.
 '''
@@ -48,12 +49,13 @@ def packer_cli(argv=sys.argv):
     config = configparser.ConfigParser();
     config['store_into'] = {'htdocs': '/var/www/localhost/htdocs/portage_trees'};
     read_files = config.read('/etc/tree-packer.ini');
-    htdocs = config['store_into']['htdocs'];
-    squashfs_name = f'{args.repository_name}.sqfs';
-    squashfs_date = time.strftime(f'{args.repository_name}-%Y-%m-%d.sqfs');
-    squashfs_latest = f'{args.repository_name}-latest.sqfs';
-    b2sum_date = time.strftime(f'{args.repository_name}-%Y-%m-%d.blake2b');
-    b2sum_latest = f'{args.repository_name}-latest.blake2b';
+    cfg: dict[str, str] = dict([]);
+    cfg['htdocs'] = config['store_into']['htdocs'];
+    cfg['squashfs_name'] = f'{args.repository_name}.sqfs';
+    cfg['squashfs_date'] = time.strftime(f'{args.repository_name}-%Y-%m-%d.sqfs');
+    cfg['squashfs_latest'] = f'{args.repository_name}-latest.sqfs';
+    cfg['b2sum_date'] = time.strftime(f'{args.repository_name}-%Y-%m-%d.blake2b');
+    cfg['b2sum_latest'] = f'{args.repository_name}-latest.blake2b';
     with tempfile.TemporaryDirectory(prefix='tree-packer.') as temp_dir:
         os.chdir(temp_dir);
         egencache = subprocess.run(['egencache', '--update', '--update-manifests',
@@ -61,45 +63,38 @@ def packer_cli(argv=sys.argv):
         f'--repo={args.repository_name}']);
         if egencache.returncode == 0:
             mksquashfs = subprocess.run(['mksquashfs',
-                args.repository_path, squashfs_name, '-e', '.git',
+                args.repository_path, cfg['squashfs_name'], '-e', '.git',
                 '-comp', 'xz', '-all-time', 'now', '-force-uid', 'portage',
                 '-force-gid', 'portage', '-no-exports', '-tailends',
                 '-no-xattrs', '-noappend'], stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL);
             if mksquashfs.returncode == 0:
-                # If this fails we want to go boom so the administator gets
-                # error messages.
-                with open(squashfs_name, 'rb') as squashfile:
-                    digest1 = hashlib.file_digest(squashfile,
+                with open(cfg['squashfs_name'], 'rb') as squashfile:
+                    cfg['squashfs_digest'] = hashlib.file_digest(squashfile,
                         'blake2b').hexdigest();
-                    _move_to_htdocs_and_fix_symlinks(htdocs=htdocs,
-                                                     squashfs_digest=digest1,
-                                                     squashfs_date=squashfs_date,
-                                                     squashfs_latest=squashfs_latest,
-                                                     squashfs_name=squashfs_name,
-                                                     b2sum_date=b2sum_date,
-                                                     b2sum_latest=b2sum_latest);
+                    _move_to_htdocs_and_fix_symlinks(cfg);
             else:
+                # Mksquashfs failed go boom so the administator gets the error
+                # messages.
                 sys.exit(1);
     #Done exit the program and trigger the magic cleanup.
     sys.exit(0);
 
-def _move_to_htdocs_and_fix_symlinks(htdocs, squashfs_digest, squashfs_date,
-                                    squashfs_latest, squashfs_name,
-                                     b2sum_date, b2sum_latest):
-    digest_line = f'{squashfs_digest} *{squashfs_date}';
-    with open(b2sum_date,'w') as digest_file:
+def _move_to_htdocs_and_fix_symlinks(cfg: dict[str, str]):
+    digest_line = f"{cfg['squashfs_digest']} *{cfg['squashfs_date']}";
+    with open(cfg['b2sum_date'],'w') as digest_file:
         digest_file.writelines(digest_line);
-    shutil.move(squashfs_name, os.path.join(htdocs, squashfs_date));
-    shutil.move(b2sum_date, os.path.join(htdocs, b2sum_date));
-    os.chdir(htdocs);
+    shutil.move(cfg['squashfs_name'], os.path.join(cfg['htdocs'],
+                                                   cfg['squashfs_date']));
+    shutil.move(cfg['b2sum_date'], os.path.join(cfg['htdocs'], cfg['b2sum_date']));
+    os.chdir(cfg['htdocs']);
     try:
-        os.remove(b2sum_latest);
+        os.remove(cfg['b2sum_latest']);
     except FileNotFoundError as error:
         pass
-    os.symlink(src=b2sum_date, dst=b2sum_latest);
+    os.symlink(src=cfg['b2sum_date'], dst=cfg['b2sum_latest']);
     try:
-        os.remove(squashfs_latest);
+        os.remove(cfg['squashfs_latest']);
     except FileNotFoundError as error:
         pass
-    os.symlink(src=squashfs_date, dst=squashfs_latest);
+    os.symlink(src=cfg['squashfs_date'], dst=cfg['squashfs_latest']);

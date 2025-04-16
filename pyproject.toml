@@ -38,3 +38,6 @@ github = "https://www.github.com/rrbrussell/tree-sinker"
 tree-sinker = "tree_sinker:main_cli"
 tree-packer = "tree_sinker:packer_cli"
 
+[[tool.mypy.overrides]]
+module = ["requests.exception.*"]
+ignore_missing_imports = true

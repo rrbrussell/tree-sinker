@@ -1,0 +1,47 @@
+.\" Copyright (c) Robert R. Russell. Permission is granted to copy, distribute
+.\" and/or modify this document under the terms of the GNU Free Documentation
+.\" License, Version 1.3 or any later version published by the Free Software
+.\" Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+.\" Back-Cover Texts. A copy of the license is included in the section entitled
+.\" "GNU Free Documentation License".
+.\"
+.TH tree-sinker 1 "2025-04-15" "tree-sinker 0.2" "tree-sinker man page"
+.SH NAME
+tree-sinker \[em] Download a squashed portage tree built with tree-packer.
+.SH SYNOPSIS
+.B tree-sinker
+.I repository_name
+.SH DESCRIPTION
+tree-sinker downloads, unmounts, rotates, and remounts a squashfs portage tree
+created by tree-packer.
+.PP
+An example fstab entry is provided later in the man page.
+.SH FILES
+.B /etc/tree-sinker.ini
+.br
+.RS 1i
+[fetch from]
+.br
+server = http://server.example.com
+.br
+#The path on the server to the directory containing the compressed repos.
+.br
+#The repos are expected to be named REPO-latest.sqfs and REPO-latest.blake2
+.br
+path = /portage_trees
+.br
+[store into]
+.br
+#The local directory where the compressed repos are stored.
+.br
+#This is assumed to be /var/db/repos by default.
+.br
+repos_dir = /var/db/repos
+.RE
+.B /etc/fstab
+.br
+.RS 1i
+/var/db/repos/REPO.sqfs /var/db/repos/REPO squasfs noatime,loop,ro 0 0
+.RE
+.SH "SEE ALSO"
+.BR tree-packer (1)
