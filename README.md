@@ -7,7 +7,7 @@ it.
 
 ## Current status.
 
-Stage 1 of testing is now being worked on.
+Stage 2 of testing is now being worked on.
 
 ## Dependencies
 

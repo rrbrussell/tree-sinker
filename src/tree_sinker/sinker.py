@@ -94,14 +94,13 @@ def main_cli(argv=sys.argv) -> int:
                 new_squashfile.seek(0)
                 new_hash: str = hashlib.file_digest(new_squashfile, 'blake2b')\
                     .hexdigest()
-                if not new_squashfile.closed:
-                    new_squashfile.close()
+                new_squashfile.close()
                 if blake2_hash != new_hash:
                     print("The new file does not match the expected hash sum.")
                     return 1
-                unmount = subprocess.run(['umount'], local_sqfs_name)
+                unmount = subprocess.run(['umount', local_sqfs_name])
                 if unmount.returncode != 0:
-                    print("Failed to unmount the current squashfs.")
+                    print('Failed to unmount the current squashfs.')
                     return 1
                 old_sqfs_name: str = \
                     os.path.join(config['store into']['repos_dir'],
@@ -112,7 +111,7 @@ def main_cli(argv=sys.argv) -> int:
                     pass
                 shutil.move(local_sqfs_name, old_sqfs_name)
                 shutil.move(blake2_sqfs_name, local_sqfs_name)
-                mount = subprocess.run(['mount'], local_sqfs_name)
+                mount = subprocess.run(['mount', local_sqfs_name])
                 return mount.returncode
         else:
             print('Configuration file has errors.')

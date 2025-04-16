@@ -1,6 +1,6 @@
 [project]
 name = "tree-sinker"
-version = "0.0.1"
+version = "0.2"
 dependencies = [
   "requests",
   "configparser",
@@ -37,7 +37,3 @@ github = "https://www.github.com/rrbrussell/tree-sinker"
 [project.scripts]
 tree-sinker = "tree_sinker:main_cli"
 tree-packer = "tree_sinker:packer_cli"
-
-[[tool.mypy.overrides]]
-module = ["requests.exception.*"]
-ignore_missing_imports = true
