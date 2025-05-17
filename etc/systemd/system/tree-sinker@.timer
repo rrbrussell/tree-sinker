@@ -8,4 +8,4 @@ WantedBy=default.target
 [Timer]
 Persistent=yes
 OnCalendar=*-*-* 01:00:00
-Unit=update-squashed-portage-tree@%i.service
+Unit=tree-sinker@%i.service

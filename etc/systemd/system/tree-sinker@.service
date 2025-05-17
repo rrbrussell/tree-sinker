@@ -4,4 +4,4 @@ Requires=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=update_squashfs_portage.sh %i
+ExecStart=tree-sinker %i
