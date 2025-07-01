@@ -4,4 +4,4 @@ Requires=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=tree-sinker %i
+ExecStart=umount /var/db/repos/%i; tree-sinker %i; mount /var/db/repos/%i;
