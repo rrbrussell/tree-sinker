@@ -1,0 +1,13 @@
+[package]
+name = "tree-sinker"
+version = "0.4.0"
+edition = "2024"
+authors = ["Robert R. Russell <robert@rrbrussell.com>"]
+description = "A small tool for automatically fetching a squashed portage tree from another server."
+documentation = "https://www.rrbrussell.com/software/tree-sinker"
+repository = "https://git.rrbrussell.com/rrbrussell/tree-sinker"
+license = "GPL-3.0-only"
+include = ["/etc", "/man"]
+
+[dependencies]
+ureq = "3.2.0"
