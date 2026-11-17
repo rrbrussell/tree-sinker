@@ -10,4 +10,5 @@ license = "GPL-3.0-only"
 include = ["DOCUMENTATION_LICENSE", "/etc", "/man", "/usr"]
 
 [dependencies]
+strfmt = "0.2.5"
 ureq = "3.2.0"
