@@ -5,17 +5,17 @@
 .\" Back-Cover Texts. A copy of the license is included in the section entitled
 .\" "GNU Free Documentation License".
 .\"
-.TH tree-sinker 1 "2025-04-15" "tree-sinker 0.2" "tree-sinker man page"
+.TH tree-sinker 1 "2026-11-17" "tree-sinker 0.5" "tree-sinker man page"
 .SH NAME
 tree-sinker \[em] Download a squashed portage tree built with tree-packer.
 .SH SYNOPSIS
 .B tree-sinker
 .I repository_name
 .SH DESCRIPTION
-tree-sinker downloads, unmounts, rotates, and remounts a squashfs portage tree
-created by tree-packer.
-.PP
-An example fstab entry is provided later in the man page.
+tree-sinker downloads, unmounts, rotates, and remounts a portage repository
+archived into a squashfs filesystem. This simplifies the management of multiple
+Gentoo(R) systems that need to be use a synchronized portage repository and/or
+set of overlays. It should be usefull to anyone running a private binhost.
 .SH FILES
 .B /etc/tree-sinker.ini
 .br
@@ -41,7 +41,7 @@ repos_dir = /var/db/repos
 .B /etc/fstab
 .br
 .RS 1i
-/var/db/repos/REPO.sqfs /var/db/repos/REPO squasfs noatime,loop,ro 0 0
+/var/db/repos/REPO.sqfs /var/db/repos/REPO squashfs noatime,loop,ro 0 0
 .RE
 .SH "SEE ALSO"
 .BR tree-packer (1)
