@@ -5,5 +5,6 @@ project(
     license: 'GPL-2.0-or-later',
     version: '0.5',
 )
-sinker_sources = 'src/main.cpp'
-executable('tree-sinker', sinker_sources)
+dep_curl = dependency('libcurl')
+sinker_sources = 'src/tree-sinker.cpp'
+executable('tree-sinker', sinker_sources, dependencies: [dep_curl])
